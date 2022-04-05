@@ -1,0 +1,537 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /api/books:
+    get:
+      operationId: listBooks
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createBook
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BookDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BookDetail'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookDetail'
+          description: ''
+      tags:
+      - api
+  /api/books/featured:
+    get:
+      operationId: featuredBook
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookDetail'
+          description: ''
+      tags:
+      - api
+  /api/books/{id}:
+    get:
+      operationId: retrieveBook
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this book.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookDetail'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateBook
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this book.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BookDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BookDetail'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookDetail'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateBook
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this book.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BookDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BookDetail'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookDetail'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyBook
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this book.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/books/{book_pk}/book_records:
+    get:
+      operationId: listBookRecords
+      description: ''
+      parameters:
+      - name: book_pk
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookRecord'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createBookRecord
+      description: ''
+      parameters:
+      - name: book_pk
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRecord'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BookRecord'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BookRecord'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookRecord'
+          description: ''
+      tags:
+      - api
+  /api/books/{book_pk}/book_records/{id}:
+    get:
+      operationId: retrieveBookRecord
+      description: ''
+      parameters:
+      - name: book_pk
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this book record.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookRecord'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateBookRecord
+      description: ''
+      parameters:
+      - name: book_pk
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this book record.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRecord'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BookRecord'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BookRecord'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookRecord'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateBookRecord
+      description: ''
+      parameters:
+      - name: book_pk
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this book record.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRecord'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BookRecord'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BookRecord'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookRecord'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyBookRecord
+      description: ''
+      parameters:
+      - name: book_pk
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this book record.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/books/{book_pk}/reviews:
+    get:
+      operationId: listBookReviews
+      description: ''
+      parameters:
+      - name: book_pk
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BookReview'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createBookReview
+      description: ''
+      parameters:
+      - name: book_pk
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookReview'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BookReview'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/BookReview'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookReview'
+          description: ''
+      tags:
+      - api
+  /auth/token/login/:
+    post:
+      operationId: createTokenCreate
+      description: Use this endpoint to obtain user authentication token.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenCreate'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenCreate'
+          description: ''
+      tags:
+      - auth
+  /auth/token/logout/:
+    post:
+      operationId: createTokenDestroy
+      description: Use this endpoint to logout user (remove user authentication token).
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - auth
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        pk:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        author:
+          type: string
+          maxLength: 255
+        featured:
+          type: boolean
+        publication_year:
+          type: integer
+          maximum: 2021
+          minimum: 300
+          nullable: true
+      required:
+      - title
+      - author
+    BookDetail:
+      type: object
+      properties:
+        pk:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        author:
+          type: string
+          maxLength: 255
+        publication_year:
+          type: integer
+          maximum: 2021
+          minimum: 300
+          nullable: true
+        featured:
+          type: boolean
+        reviews:
+          type: array
+          items:
+            type: string
+          readOnly: true
+      required:
+      - title
+      - author
+    BookRecord:
+      type: object
+      properties:
+        pk:
+          type: integer
+          readOnly: true
+        book:
+          type: object
+          properties:
+            pk:
+              type: integer
+              readOnly: true
+            title:
+              type: string
+              maxLength: 255
+            author:
+              type: string
+              maxLength: 255
+            featured:
+              type: boolean
+            publication_year:
+              type: integer
+              maximum: 2021
+              minimum: 300
+              nullable: true
+          required:
+          - title
+          - author
+        reader:
+          type: string
+          readOnly: true
+        reading_state:
+          enum:
+          - wr
+          - rg
+          - rd
+          type: string
+          nullable: true
+      required:
+      - book
+    BookReview:
+      type: object
+      properties:
+        pk:
+          type: integer
+          readOnly: true
+        body:
+          type: string
+        book:
+          type: string
+          readOnly: true
+        reviewed_by:
+          type: string
+          readOnly: true
+      required:
+      - body
+    TokenCreate:
+      type: object
+      properties:
+        password:
+          type: string
+        username:
+          type: string
