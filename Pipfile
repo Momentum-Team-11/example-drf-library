@@ -11,6 +11,8 @@ werkzeug = "*"
 django-environ = "*"
 django-on-heroku = "*"
 drf-nested-routers = "*"
+djoser = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 black = "*"

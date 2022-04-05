@@ -39,4 +39,6 @@ urlpatterns = [
         name="book_reviews",
     ),
     path("admin/", admin.site.urls),
+    path("api/auth/", include("djoser.urls")),
+    path("api/auth/", include("djoser.urls.authtoken")),
 ]
