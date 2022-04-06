@@ -24,7 +24,7 @@ POST requests with a body should set the `Content-Type` header to `application/j
 
 Username and password are required.
 
-```json
+```
 POST api/auth/users
 
 {
@@ -35,7 +35,7 @@ POST api/auth/users
 
 ### response
 
-```json
+```
 201 Created
 
 {
@@ -50,7 +50,7 @@ POST api/auth/users
 
 ### request
 
-```json
+```
 POST auth/login
 
 {
@@ -160,7 +160,7 @@ Requires authentication.
 
 `title` and `author` are required fields.
 
-```json
+```
 POST api/books
 
 {
@@ -172,7 +172,7 @@ POST api/books
 
 ### response
 
-```json
+```
 201 Created
 
 {
@@ -192,7 +192,7 @@ Requires authentication. Available only to admin users.
 
 ### request
 
-```json
+```
 
 PATCH api/books/{id}
 
@@ -203,7 +203,7 @@ PATCH api/books/{id}
 
 ### response
 
-```json
+```
 200 OK
 
 {
@@ -251,7 +251,7 @@ Requires authentication.
 
 ### request
 
-```json
+```
 POST api/books/{id}/reviews
 
  {
@@ -262,7 +262,7 @@ POST api/books/{id}/reviews
 
 ### response
 
-```json
+```
 201 Created
 
 {
