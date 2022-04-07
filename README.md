@@ -229,7 +229,7 @@ GET api/books/{id}/reviews
 
 ### response
 
-```json
+```
 
 [
   {
