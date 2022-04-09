@@ -1,6 +1,7 @@
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.decorators import action, permission_classes
 from rest_framework.exceptions import PermissionDenied, ParseError
+from rest_framework.filters import SearchFilter
 from rest_framework.generics import (
     ListAPIView,
     ListCreateAPIView,
@@ -26,6 +27,8 @@ class BookViewSet(ModelViewSet):
     queryset = Book.objects.all().order_by("title")
     serializer_class = BookDetailSerializer
     permission_classes = [IsAuthenticated, IsAdminOrReadOnly]
+    filter_backends = [SearchFilter]
+    search_fields = ["title", "author"]
 
     def get_serializer_class(self):
         if self.action in ["list"]:
