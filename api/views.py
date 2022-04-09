@@ -52,7 +52,16 @@ class BookReviewListCreateView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return BookReview.objects.filter(book_id=self.kwargs["book_pk"])
+        queryset = BookReview.objects.filter(book_id=self.kwargs["book_pk"])
+        search_term = self.request.query_params.get("search")
+        if search_term is not None:
+            queryset = queryset.filter(
+                # Note that using this "search" lookup depends on using full-text search in Postgres
+                # https://docs.djangoproject.com/en/4.0/ref/contrib/postgres/search/#the-search-lookup
+                body__search=self.request.query_params.get("search")
+            )
+
+        return queryset
 
     def perform_create(self, serializer, **kwargs):
         book = get_object_or_404(Book, pk=self.kwargs["book_pk"])
