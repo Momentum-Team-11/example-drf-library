@@ -1,7 +1,12 @@
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.decorators import action, permission_classes
 from rest_framework.exceptions import PermissionDenied, ParseError
-from rest_framework.generics import CreateAPIView, ListCreateAPIView, get_object_or_404
+from rest_framework.generics import (
+    ListAPIView,
+    ListCreateAPIView,
+    RetrieveDestroyAPIView,
+    get_object_or_404,
+)
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from .models import Book, BookRecord, BookReview
@@ -66,3 +71,18 @@ class BookReviewListCreateView(ListCreateAPIView):
     def perform_create(self, serializer, **kwargs):
         book = get_object_or_404(Book, pk=self.kwargs["book_pk"])
         serializer.save(reviewed_by=self.request.user, book=book)
+
+
+class BookReviewDetailView(RetrieveDestroyAPIView):
+    serializer_class = BookReviewSerializer
+    queryset = BookReview.objects.all()
+
+
+class BookTitleSearchView(ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookDetailSerializer
+
+    def get_queryset(self):
+        search_term = self.request.query_params.get("title")
+        if search_term is not None:
+            return self.queryset.filter(title__icontains=search_term)

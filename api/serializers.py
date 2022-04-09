@@ -16,7 +16,7 @@ class BookSerializer(serializers.ModelSerializer):
 
 class BookDetailSerializer(serializers.ModelSerializer):
     reviews = serializers.HyperlinkedRelatedField(
-        many=True, read_only=True, view_name="book_reviews-detail"
+        many=True, read_only=True, view_name="book_review_detail"
     )
 
     class Meta:

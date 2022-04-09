@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.conf import settings
 from api import views as api_views
 from rest_framework.routers import DefaultRouter
 from rest_framework_nested.routers import NestedSimpleRouter
@@ -33,10 +32,16 @@ books_router.register(
 urlpatterns = [
     path("api/", include(router.urls)),
     path("api/", include(books_router.urls)),
+    path("api/search", api_views.BookTitleSearchView.as_view(), name="title_search"),
     path(
         "api/books/<int:book_pk>/reviews",
         api_views.BookReviewListCreateView.as_view(),
         name="book_reviews",
+    ),
+    path(
+        "api/book-reviews/<int:pk>",
+        api_views.BookReviewDetailView.as_view(),
+        name="book_review_detail",
     ),
     path("admin/", admin.site.urls),
     path("api/auth/", include("djoser.urls")),
