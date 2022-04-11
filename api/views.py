@@ -1,3 +1,4 @@
+from django.contrib.postgres.search import SearchVector
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.decorators import action, permission_classes
 from rest_framework.exceptions import PermissionDenied, ParseError
@@ -40,6 +41,17 @@ class BookViewSet(ModelViewSet):
         featured_books = Book.objects.filter(featured=True)
         serializer = self.get_serializer(featured_books, many=True)
         return Response(serializer.data)
+
+    def get_queryset(self):
+        if self.request.query_params.get("search"):
+            search_term = self.request.query_params.get("search")
+            queryset = (
+                Book.objects.annotate(search=SearchVector("title", "reviews__body"))
+                .filter(search=search_term)
+                .distinct("pk")
+            )
+            return queryset
+        return super().get_queryset()
 
 
 class BookRecordViewSet(ModelViewSet):
