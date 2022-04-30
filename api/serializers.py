@@ -43,8 +43,8 @@ class BookReviewSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    photo = serializers.ImageField()
+    photo = serializers.ImageField(required=False)
 
     class Meta:
         model = User
-        fields = ["pk", "username", "photo"]
+        fields = ["pk", "username", "email", "photo"]
