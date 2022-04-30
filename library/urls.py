@@ -19,7 +19,6 @@ from api import views as api_views
 from rest_framework.routers import DefaultRouter
 from rest_framework_nested.routers import NestedSimpleRouter
 
-
 router = DefaultRouter(trailing_slash=False)
 router.register("books", api_views.BookViewSet, basename="books")
 books_router = NestedSimpleRouter(router, "books", lookup="book")
@@ -28,6 +27,8 @@ books_router.register(
     api_views.BookRecordViewSet,
     basename="book_records",
 )
+users_router = DefaultRouter()
+users_router.register("users", api_views.UserViewSet, basename="users")
 
 urlpatterns = [
     path("api/", include(router.urls)),
@@ -44,6 +45,6 @@ urlpatterns = [
         name="book_review_detail",
     ),
     path("admin/", admin.site.urls),
-    path("api/auth/", include("djoser.urls")),
+    path("api/auth/", include(users_router.urls)),
     path("api/auth/", include("djoser.urls.authtoken")),
 ]

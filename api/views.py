@@ -1,4 +1,5 @@
 from django.contrib.postgres.search import SearchVector
+from djoser.views import UserViewSet as DjoserUserViewSet
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.decorators import action, permission_classes
 from rest_framework.exceptions import PermissionDenied, ParseError
@@ -9,14 +10,16 @@ from rest_framework.generics import (
     RetrieveDestroyAPIView,
     get_object_or_404,
 )
+from rest_framework.parsers import JSONParser, FileUploadParser
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
-from .models import Book, BookRecord, BookReview
+from .models import Book, BookRecord, BookReview, User
 from .serializers import (
     BookSerializer,
     BookDetailSerializer,
     BookRecordSerializer,
     BookReviewSerializer,
+    UserSerializer,
 )
 from .custom_permissions import (
     IsAdminOrReadOnly,
@@ -101,3 +104,24 @@ class BookTitleSearchView(ListAPIView):
         search_term = self.request.query_params.get("title")
         if search_term is not None:
             return self.queryset.filter(title__icontains=search_term)
+
+
+class UserViewSet(DjoserUserViewSet):
+    queryset = User.objects.all()
+    serlializer_class = UserSerializer
+    parser_classes = [JSONParser, FileUploadParser]
+
+    def save_file_attachment(self, file):
+        user = self.get_object()
+        user.photo.save(file.name, file, save=True)
+
+    def perform_update(self, serializer):
+        if "file" in self.request.data:
+            self.save_file_attachment(self.request.data["file"])
+        super().perform_update(serializer)
+
+    def get_object(self):
+        user_instance = get_object_or_404(self.get_queryset(), pk=self.kwargs["id"])
+        if self.request.user is not user_instance:
+            raise PermissionDenied()
+        return user_instance
